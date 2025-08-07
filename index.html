@@ -1,193 +1,646 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Rummy Logic</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rummy Logic – India’s Premier Rummy Game App</title>
 
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-
-  <!-- Animate.css -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-
-  <!-- Google Fonts -->
+  <!-- Fonts and Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
 
   <style>
-    body {
-      background-color: #032147;
-      color: white;
-      font-family: 'Poppins', sans-serif;
-      scroll-behavior: smooth;
+    :root {
+      --theme-light: #BFD7ED;
+      --theme-medium: #60A3D9;
+      --theme-dark: #0074B7;
+      --theme-deep: #003B73;
+
     }
 
-    section {
-      padding: 100px 0;
+    html,
+    body {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
+    .container,
+    .container-fluid {
+      width: 100%;
+      max-width: 100%;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--theme-light);
+      color: var(--theme-deep);
     }
 
     .navbar {
-      background-color: #031f44 !important;
+      background-color: var(--theme-dark);
+      position: fixed;
+      z-index: 33;
+      width: 100%;
     }
 
-    .nav-link {
-      color: #e8be6a !important;
+    .navbar .nav-link,
+    .navbar-brand {
+      color: #ffffff !important;
     }
 
+    .navbar .nav-link.active,
+    .navbar .nav-link:hover {
+      font-weight: 600;
+    }
+
+    #welcomePopup {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    #welcomePopup .popup-content {
+      background: var(--theme-medium);
+      padding: 30px;
+      border-radius: 12px;
+      text-align: center;
+      max-width: 400px;
+      color: var(--theme-deep);
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+      position: relative;
+    }
+
+    .btn-download,
     .btn-custom {
-      background-color: #e8be6a;
-      color: #032147;
+      background-color: var(--theme-dark);
+      color: white;
+      padding: 10px 24px;
+      border: none;
+      border-radius: 8px;
       font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-download:hover,
+    .btn-custom:hover {
+      background-color: var(--theme-deep);
+    }
+
+    .btn-close-popup {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--theme-deep);
+      cursor: pointer;
     }
 
     .carousel-item img,
-    video {
+    .carousel-item video {
       width: 100%;
-      border-radius: 10px;
       max-height: 500px;
       object-fit: cover;
+      border-radius: 12px;
     }
 
-    .rummy-list li::before {
-      content: "✅ ";
+    @media (max-width: 768px) {
+
+      .carousel-item img,
+      .carousel-item video {
+        max-height: 300px;
+      }
     }
 
-    footer {
-      background-color: #031f44;
+    .rummy-heading {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
     }
 
-    h1, h2, h3, h4, p, li {
-      color: white;
+    .text-gradient {
+      background: linear-gradient(#0d6efd, #145DA0);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
     }
 
-    a.btn:hover {
-      opacity: 0.9;
-    }
-    .navbar-toggler-icon {
-  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255,0.9)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+    .promo-card {
+  background: linear-gradient(to right, var(--theme-medium), var(--theme-dark));
+  color: white;
 }
+
+
+   .card.bg-secondary {
+  background-image: url('assets/card-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.card.bg-secondary::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 0;
+}
+
+.card.bg-secondary .card-body {
+  position: relative;
+  z-index: 1;
+}
+
+
+#about .card {
+  background: linear-gradient(to right, var(--theme-light), var(--theme-medium));
+  color: var(--theme-deep);
+}
+
+#howtoplay .rounded {
+  background: linear-gradient(145deg, var(--theme-medium), var(--theme-deep));
+  color: white;
+  border: none;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+
+#howtoplay .howtoplay-card {
+  background: linear-gradient(145deg, var(--theme-medium), var(--theme-deep));
+  color: white;
+  border: none;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+}
+
+#howtoplay .howtoplay-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.4);
+}
+
+.howto-icon {
+  color: #FFC107; /* Example: Bootstrap warning yellow */
+  font-size: 3rem;
+  transition: transform 0.3s, color 0.3s;
+}
+
+.howto-icon:hover {
+  color: #FFD700; /* Brighter gold on hover */
+  transform: scale(1.1);
+}
+
+#howtoplay .btn-custom {
+  background: linear-gradient(to right, #ff8c00, #ffa500);
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 50px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  transition: all 0.3s ease;
+}
+
+#howtoplay .btn-custom:hover {
+  background: linear-gradient(to right, #ffa500, #ffcc00);
+  transform: scale(1.05);
+}
+
+#welcomePopup .popup-content {
+  background: url('assets/popup-bg.jpg'), var(--theme-medium);
+  background-size: cover;
+  background-blend-mode: overlay;
+}
+
+    .text-dark {
+      color: var(--theme-deep) !important;
+    }
+
+    .text-warning {
+      color: var(--theme-dark) !important;
+    }
+
+    .promo-card {
+      background-color: var(--theme-medium);
+      color: var(--theme-deep);
+      border: none;
+      border-radius: 12px;
+      padding: 20px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .promo-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    }
+
+
+    #rummy-promo .card {
+      background: linear-gradient(to right, var(--theme-medium), var(--theme-deep));
+      color: var(--theme-light);
+    }
+
+    #about .col-md-6 .card {
+      background: linear-gradient(to left, var(--theme-light), var(--theme-medium));
+      color: var(--theme-light)
+    }
+#stickyBar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 9999;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
+  animation: slideUp 0.6s ease-in-out;
+}
+
+#stickyDownloadBtn {
+  background: linear-gradient(90deg, #f57c00, #ff9800); /* gradient orange */
+  color: white;
+  font-size: 1.1rem;
+  padding: 15px;
+  text-align: center;
+  transition: background 0.3s ease, transform 0.2s;
+}
+
+#stickyDownloadBtn:hover {
+  background: linear-gradient(90deg, #ffa726, #ffb74d); /* lighter gradient */
+  transform: scale(1.02);
+  color: #fff;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+
+    .started .card {
+      cursor: pointer;
+    }
+
+    .contact-info {
+  background: linear-gradient(135deg, #1d2a2b, #2c3e40);
+  border-radius: 20px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+  max-width: 700px;
+  margin:auto
+}
+
+
+    .social-icon {
+  color: #ffc107;
+  font-size: 1.8rem;
+  margin-right: 20px;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.social-icon:hover {
+  color: #ffffff;
+  transform: scale(1.2);
+}
+
+#contact .contact-info a:hover {
+  text-decoration: underline;
+}
+
   </style>
 </head>
-<body data-bs-spy="scroll" data-bs-target="#navbar" data-bs-offset="70">
 
-  <!-- Navbar -->
-  <nav id="navbar" class="navbar navbar-expand-lg fixed-top animate__animated animate__fadeInDown">
+<body>
+  <!-- Popup -->
+  <div id="welcomePopup">
+    <div class="popup-content animate__animated animate__zoomIn">
+      <button class="btn-close-popup" onclick="closePopup()">&times;</button>
+      <img src="assets/logo.png" alt="Rummy Logic" width="60" class="mb-3" />
+      <h2 class="mb-2">Welcome to Rummy Logic</h2>
+      <p class="mb-4">India's Premier Rummy Game App</p>
+      <a href="assets/RummyLogic.apk" class="btn-download">⬇ Download APK</a>
+    </div>
+  </div>
+
+  <!-- Header/Navbar -->
+  <nav class="navbar navbar-expand-lg">
     <div class="container">
-      <a class="navbar-brand text-white fw-bold" href="#">Rummy Logic</a>
-      <button class="navbar-toggler navbar-toggler-icon-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-label="Toggle navigation">
-  <span class="navbar-toggler-icon"></span>
-</button>
+      <a class="navbar-brand fw-bold" href="#">
+        <img src="assets/logo.png" alt="Logo" width="30" class="me-2">Rummy Logic
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="#about">About Us</a></li>
-          <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#howtoplay">How to Play</a></li>
           <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
         </ul>
       </div>
     </div>
   </nav>
 
-  <!-- Home -->
-  <section id="home" class="text-center">
-    <div class="container">
-      <h1 class="display-4 animate__animated animate__fadeInUp">Welcome to Rummy Logic</h1>
-      <p class="lead animate__animated animate__fadeInUp">All-in-one platform for everything you need.</p>
+  <!-- Carousel Section -->
+  <section id="home" class="container mt-5">
+    <h1 class="rummy-heading text-center animate__animated animate__fadeInDown">
+      <span class="text-gradient mt-2">India’s Biggest Rummy Game</span><br />
+      <strong>— Rummy Logic —</strong>
+    </h1>
 
-      <!-- Carousel -->
-      <div id="bannerCarousel" class="carousel slide mt-4" data-bs-ride="carousel">
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <img src="assets/banner1.jpg" class="d-block w-100" alt="Banner 1" />
-          </div>
-          <div class="carousel-item">
-            <img src="assets/banner2.jpg" class="d-block w-100" alt="Banner 2" />
-          </div>
-          <div class="carousel-item">
-            <video autoplay muted loop>
-              <source src="assets/banner3.mp4" type="video/mp4" />
-            </video>
-          </div>
-          <div class="carousel-item">
-            <video autoplay muted loop>
-              <source src="assets/banner4.mp4" type="video/mp4" />
-            </video>
-          </div>
+    <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="assets/banner1.jpg" class="d-block w-100" alt="Banner 1">
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#bannerCarousel" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon"></span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#bannerCarousel" data-bs-slide="next">
-          <span class="carousel-control-next-icon"></span>
-        </button>
-      </div>
-    </div>
-  </section>
-
-  <!-- Promo -->
-  <section id="rummy-promo" class="text-center bg-gradient animate__animated animate__fadeIn">
-    <div class="container">
-      <h2 class="mb-3">🎉 Play India's #1 Rummy Game Online!</h2>
-      <p class="lead fw-bold">Download the APK & Start Winning Real Cash Today!</p>
-      <a href="assets/rummy.apk" download class="btn btn-custom btn-lg mt-3">👉 Download APK Now</a>
-
-      <div class="text-start mt-5">
-        <h3 class="text-center mb-4">🔥 Why Choose Our Rummy App?</h3>
-        <ul class="rummy-list list-unstyled fs-5">
-          <li>Real Players. Real Cash.</li>
-          <li>100% Legal & Secure.</li>
-          <li>Skill-Based Gameplay.</li>
-          <li>Daily Tournaments & Big Rewards.</li>
-          <li>Seamless Gaming Experience.</li>
-        </ul>
-
-        <h4 class="mt-4 text-center">💡 How to Get Started</h4>
-        <ol class="fs-5">
-          <li>Click on the "Download APK" Button</li>
-          <li>Install the App on Your Android Device</li>
-          <li>Register & Verify Your Account</li>
-          <li>Start Playing and Winning Cash!</li>
-        </ol>
-
-        <p class="mt-4 text-center">🧾 <strong>Responsible Gaming:</strong> You must be 18+ to play. Set limits and play responsibly.</p>
-
-        <div class="text-center mt-4">
-          <a href="assets/rummy.apk" download class="btn btn-success btn-lg">🚀 Download Rummy APK Now</a>
+        <div class="carousel-item">
+          <video class="d-block w-100" autoplay muted loop>
+            <source src="./assets/banner3.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="carousel-item">
+          <video class="d-block w-100" autoplay muted loop>
+            <source src="assets/banner4.mp4" type="video/mp4">
+          </video>
         </div>
       </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
     </div>
   </section>
 
-  <!-- About -->
-  <section id="about" class="text-center animate__animated animate__fadeInLeft">
-    <div class="container">
-      <h2>About Us</h2>
-      <p>We are committed to delivering high-quality solutions to our users. Our mission is to provide the most enjoyable and rewarding Rummy experience online.</p>
-    </div>
-  </section>
+<!-- promo Section Starts -->
+<section id="rummy-promo" class="text-center py-5" data-aos="fade-up">
+  <div class="container">
+    <h2 class="mb-3">Play India’s #1 Rummy Game Online!</h2>
+    <p class="lead fw-bold">Download the APK & Start Winning Real Cash Today!</p>
+    <a href="assets/Rummy Logic.apk" download class="btn btn-lg btn-warning fw-bold px-4 mt-3">👉 Download APK Now</a>
 
-  <!-- Services -->
-  <section id="services" class="text-center animate__animated animate__fadeInRight">
-    <div class="container">
-      <h2>Our Services</h2>
-      <p>Mobile App Development, Web Design, Cloud Hosting, Secure Payment Gateway, Customer Support, and more.</p>
-    </div>
-  </section>
+    <h3 class="text-center mt-5 mb-4">Why Choose Rummy Logic?</h3>
+    <div class="row g-4">
 
-  <!-- Contact -->
-  <section id="contact" class="text-center animate__animated animate__fadeInUp">
-    <div class="container">
-      <h2>Contact Us</h2>
-      <p>Email: <a href="mailto:support@myapp.com" class="text-white">support@myapp.com</a><br>Phone: +91-1234567890</p>
-    </div>
-  </section>
+      <div class="col-md-4 col-sm-6" data-aos="zoom-in">
+        <div class="card promo-card h-100 text-center shadow-sm">
+          <div class="card-body">
+            <img src="assets/india-rupee.png" alt="Cash" width="60" class="mb-3" />
+            <h5 class="card-title fw-bold">Real Players. Real Cash.</h5>
+            <p class="card-text">Play against real users and win real money securely.</p>
+          </div>
+        </div>
+      </div>
 
-  <!-- Footer -->
-  <footer class="text-white text-center p-3 animate__animated animate__fadeInUp">
+      <div class="col-md-4 col-sm-6" data-aos="zoom-in" data-aos-delay="100">
+        <div class="card promo-card h-100 text-center shadow-sm">
+          <div class="card-body">
+            <img src="assets/encrypted.png" alt="Secure" width="60" class="mb-3" />
+            <h5 class="card-title fw-bold">100% Legal & Secure</h5>
+            <p class="card-text">Fully compliant and backed by robust security systems.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-sm-6" data-aos="zoom-in" data-aos-delay="200">
+        <div class="card promo-card h-100 text-center shadow-sm">
+          <div class="card-body">
+            <img src="assets/skill.png" alt="Skill" width="60" class="mb-3" />
+            <h5 class="card-title fw-bold">Skill-Based Gameplay</h5>
+            <p class="card-text">Win through strategy and skill — not just luck.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-sm-6" data-aos="zoom-in" data-aos-delay="300">
+        <div class="card promo-card h-100 text-center shadow-sm">
+          <div class="card-body">
+            <img src="assets/trophy.png" alt="Tournaments" width="60" class="mb-3" />
+            <h5 class="card-title fw-bold">Daily Tournaments</h5>
+            <p class="card-text">Compete every day and win exciting rewards & prizes.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-sm-6" data-aos="zoom-in" data-aos-delay="400">
+        <div class="card promo-card h-100 text-center shadow-sm">
+          <div class="card-body">
+            <img src="assets/product-quality.png" alt="Experience" width="60" class="mb-3" />
+            <h5 class="card-title fw-bold">Seamless Experience</h5>
+            <p class="card-text">Enjoy smooth gameplay on all modern Android devices.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Getting Started Steps -->
+    <h4 class="mt-5 text-center text-warning">How to Get Started</h4>
+<div class="row g-4 mt-3">
+  <div class="col-md-3 col-sm-6" data-aos="fade-up">
+    <div class="card h-100 step-card shadow-sm text-center" onclick="openImageModal('assets/downloadRummyLogic.jpg')">
+      <div class="card-body">
+        <img src="assets/downloadRummyLogic.jpg" alt="Step 1" class="img-fluid rounded mb-3" style="max-height: 150px; object-fit: cover;">
+        <h5 class="card-title fw-bold text-primary">Step 1</h5>
+        <p class="card-text">Click the <strong>“Download APK”</strong> button</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3 col-sm-6" data-aos="fade-up" data-aos-delay="100">
+    <div class="card h-100 step-card shadow-sm text-center" onclick="openImageModal('assets/installRummyLogic.jpg')">
+      <div class="card-body">
+        <img src="assets/installRummyLogic.jpg" alt="Step 2" class="img-fluid rounded mb-3" style="max-height: 150px; object-fit: cover;">
+        <h5 class="card-title fw-bold text-primary">Step 2</h5>
+        <p class="card-text">Install on your Android device</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3 col-sm-6" data-aos="fade-up" data-aos-delay="200">
+    <div class="card h-100 step-card shadow-sm text-center" onclick="openImageModal('assets/registerRummyLogic.jpg')">
+      <div class="card-body">
+        <img src="assets/registerRummyLogic.jpg" alt="Step 3" class="img-fluid rounded mb-3" style="max-height: 150px; object-fit: cover;">
+        <h5 class="card-title fw-bold text-primary">Step 3</h5>
+        <p class="card-text">Register & verify your account</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3 col-sm-6" data-aos="fade-up" data-aos-delay="300">
+    <div class="card h-100 step-card shadow-sm text-center" onclick="openImageModal('assets/startPlayingRummyLogic.jpg')">
+      <div class="card-body">
+        <img src="assets/startPlayingRummyLogic.jpg" alt="Step 4" class="img-fluid rounded mb-3" style="max-height: 150px; object-fit: cover;">
+        <h5 class="card-title fw-bold text-primary">Step 4</h5>
+        <p class="card-text">Start playing and winning!</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+  </div>
+</section>
+
+
+
+  <!-- How to Play Section -->
+ <section id="howtoplay" class="py-5 text-center">
+  <div class="container">
+    <h2 class="text-warning mb-5" data-aos="zoom-in">🎯 How to Play Rummy</h2>
+    <div class="row g-4">
+      <div class="col-md-3" data-aos="fade-up" data-aos-delay="100">
+        <div class="p-4 rounded howtoplay-card h-100">
+          <i class="bi bi-download display-4 howto-icon mb-3"></i>
+          <h5 class="fw-bold text-white">Download</h5>
+          <p class="mb-0">Click the download button to get the Rummy Logic APK.</p>
+        </div>
+      </div>
+      <div class="col-md-3" data-aos="fade-up" data-aos-delay="200">
+        <div class="p-4 rounded howtoplay-card h-100">
+          <i class="bi bi-phone-fill display-4 howto-icon mb-3"></i>
+          <h5 class="fw-bold text-white">Install</h5>
+          <p class="mb-0">Allow installation from unknown sources to proceed.</p>
+        </div>
+      </div>
+      <div class="col-md-3" data-aos="fade-up" data-aos-delay="300">
+        <div class="p-4 rounded howtoplay-card h-100">
+          <i class="bi bi-pencil-square display-4 howto-icon mb-3"></i>
+          <h5 class="fw-bold text-white">Register</h5>
+          <p class="mb-0">Verify with OTP and complete your signup in seconds.</p>
+        </div>
+      </div>
+      <div class="col-md-3" data-aos="fade-up" data-aos-delay="400">
+        <div class="p-4 rounded howtoplay-card h-100">
+          <i class="bi bi-cash-stack display-4 howto-icon mb-3"></i>
+          <h5 class="fw-bold text-white">Play & Win</h5>
+          <p class="mb-0">Join exciting tables daily and win real cash securely!</p>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn btn-custom btn-lg mt-4 px-4 py-2" data-bs-toggle="modal" data-bs-target="#howToPlayModal">
+      ▶️ Watch Tutorial
+    </button>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="howToPlayModal" tabindex="-1" aria-labelledby="howToPlayModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content bg-dark text-white">
+        <div class="modal-header border-0">
+          <h5 class="modal-title" id="howToPlayModalLabel">🎥 Rummy Game Tutorial</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="ratio ratio-16x9">
+            <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" title="How to Play Rummy" allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <!-- contact  -->
+<section id="contact" class="contact-section py-5">
+  <div class="container text-center">
+    <h2 class="text-warning mb-3" data-aos="zoom-in">📞 Contact Us</h2>
+    <p class="text-light mb-4">Reach out to our support team for help, questions, or feedback — we're here to assist!</p>
+
+    <div class="contact-info" data-aos="fade-up" data-aos-delay="100">
+      
+      <h4 class="text-warning mb-4"><i class="bi bi-person-lines-fill me-2"></i>Contact Information</h4>
+
+      <p class="text-light fs-5">
+        <i class="bi bi-envelope-fill text-warning me-2"></i>
+        Email: <a href="mailto:support@myapp.com" class="text-warning text-decoration-none">support@myapp.com</a>
+      </p>
+
+      <p class="text-light fs-5">
+        <i class="bi bi-telephone-fill text-warning me-2"></i>
+        Phone: <a href="tel:+911234567890" class="text-warning text-decoration-none">+91 123 456 7890</a>
+      </p>
+
+      <div class="social-icons mt-4">
+        <a href="https://facebook.com/rummylogic" class="social-icon"><i class="bi bi-facebook"></i></a>
+        <a href="https://twitter.com/rummylogic" class="social-icon"><i class="bi bi-twitter-x"></i></a>
+        <a href="https://instagram.com/rummylogic" class="social-icon"><i class="bi bi-instagram"></i></a>
+        <a href="https://youtube.com/rummylogic" class="social-icon"><i class="bi bi-youtube"></i></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+  <footer class="text-center p-3">
     <p>&copy; 2025 Rummy Logic. All rights reserved.</p>
   </footer>
 
-  <!-- Bootstrap Bundle -->
+  <div id="stickyBar">
+    <a href="assets/Rummy Logic.apk" download class="d-block w-100 text-center text-decoration-none btn-custom"
+      id="stickyDownloadBtn">
+      <strong><i class="bi bi-download fs-6"></i> Download Rummy Logic APK Now</strong>
+    </a>
+  </div>
+
+  <div id="imagePopupModal" class="modal" tabindex="-1"
+    style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:10000; align-items:center; justify-content:center;">
+    <div style="position:relative; max-width:90%; max-height:90%;">
+      <button onclick="closeImageModal()"
+        style="position:absolute; top:10px; right:10px; background:none; border:none; font-size:2rem; color:white; z-index:1;">&times;</button>
+      <img id="popupImage" src="" alt="Step Image"
+        style="width:100%; height:auto; max-height:90vh; border-radius:12px; box-shadow:0 0 20px rgba(255,255,255,0.5);" />
+    </div>
+  </div>
+
+
+  <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init();
+
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.getElementById('welcomePopup').style.display = 'flex';
+      }, 1000);
+    });
+
+    function closePopup() {
+      document.getElementById('welcomePopup').style.display = 'none';
+    }
+
+    function openImageModal(src) {
+      const modal = document.getElementById('imagePopupModal');
+      document.getElementById('popupImage').src = src;
+      modal.style.display = 'flex';
+    }
+
+    function closeImageModal() {
+      document.getElementById('imagePopupModal').style.display = 'none';
+      document.getElementById('popupImage').src = '';
+    }
+  </script>
 </body>
+
 </html>

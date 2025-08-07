@@ -1,0 +1,79 @@
+/* Base Responsive Typography */
+html {
+  font-size: 16px; /* Default base font size */
+}
+
+body {
+  font-size: 1rem;
+}
+
+h1 {
+  font-size: clamp(1.8rem, 4vw, 3rem);
+}
+
+h2 {
+  font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+}
+
+h3 {
+  font-size: clamp(1.3rem, 3vw, 2rem);
+}
+
+h4 {
+  font-size: clamp(1.2rem, 2.5vw, 1.75rem);
+}
+
+p,
+li,
+a,
+button,
+.nav-link,
+.btn {
+  font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+  line-height: 1.6;
+}
+
+/* Adjust spacing on smaller screens */
+@media (max-width: 768px) {
+  section {
+    padding: 20px 10px;
+  }
+
+  .carousel-item img,
+  video {
+    max-height: 300px;
+  }
+
+  .btn-custom,
+  .btn {
+    padding: 10px 20px;
+    font-size: 1rem;
+  }
+
+  .rummy-list li {
+    margin-bottom: 0.5rem;
+  }
+}
+
+/* Extra-small screens */
+@media (max-width: 480px) {
+  html {
+    font-size: 15px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-align: center;
+  }
+
+  .navbar-brand span {
+    font-size: 1.2rem;
+  }
+
+  .btn-custom,
+  .btn {
+    font-size: 0.95rem;
+    padding: 10px 16px;
+  }
+}
